@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   LIVANSHI BIRTHDAY WEBSITE — SCRIPT.JS
+   LIVANSHI BEST FRIENDS DAY WEBSITE — SCRIPT.JS
    Dreamy Scrapbook Experience
 ═══════════════════════════════════════════ */
 
@@ -14,7 +14,7 @@ const CONFIG = {
   loveItems: [
     { emoji: '😊', text: 'Your Smile' },
     { emoji: '🤣', text: 'Your Laugh' },
-    { emoji: '⚡', text: 'Your Energy' },
+    { emoji: '🫂', text: 'Your Hugs' },
     { emoji: '💛', text: 'Your Kindness' },
     { emoji: '🌙', text: 'Your Weirdness' },
     { emoji: '💬', text: 'How You Talk' },
@@ -33,10 +33,10 @@ const CONFIG = {
 
   memories: [
     {
-      date: 'Our First Meeting',
+      date: 'The Very Beginning',
       emoji: '🌟',
-      title: 'The Day Everything Changed',
-      desc: 'Some moments become the chapter everything else is written around. That day was one of them.'
+      title: 'When It All Started',
+      desc: 'Some friendships begin quietly, without fanfare. But looking back, that moment was everything — the first page of our favourite story.'
     },
     {
       date: 'That Unforgettable Day',
@@ -48,38 +48,38 @@ const CONFIG = {
       date: 'A Random Afternoon',
       emoji: '☁️',
       title: 'Doing Nothing, Together',
-      desc: 'Some of the best memories aren\'t big adventures. They\'re just being together on a lazy day.'
+      desc: 'Some of the best memories aren\'t big adventures. They\'re just being together on a lazy day, and it feeling like the whole world.'
     },
     {
-      date: 'The Time You Helped Me',
+      date: 'The Time You Showed Up',
       emoji: '💛',
-      title: 'You Showed Up Without Being Asked',
-      desc: 'That\'s who you are. You show up. Quietly. Completely. Without needing a reason.'
+      title: 'You Were There Without Being Asked',
+      desc: 'That\'s who you are. You show up. Quietly. Completely. Without needing a reason. That\'s the kind of friend you are.'
     },
     {
-      date: 'Recently',
+      date: 'Right Now',
       emoji: '🎀',
       title: 'Still Going Strong',
-      desc: 'Time passes, things change — but not us. Some things just get better.'
+      desc: 'Time passes, things change — but not us. Some things just get better. We are one of those things.'
     },
   ],
 
   song: {
     title: 'Rakhlo Tum Chupaake',
-    artist: 'Arpit Bala,Adil',
-    src: 'song.mp3',  // ← optional: add a URL to an audio file to enable the player
-    cover: 'images/song_album.jfif', // ← optional: add a URL to an image file for the cover art
+    artist: 'Arpit Bala, Adil',
+    src: 'song.mp3',
+    cover: 'images/song_album.jfif',
     coverEmoji: '🎵',
   },
 
   reasons: [
-    { text: 'Because you make everyone feel seen and heard', emoji: '💛' },
-    { text: 'Because your laugh is literally contagious', emoji: '😂' },
-    { text: 'Because you love with your whole heart', emoji: '❤️' },
-    { text: 'Because you\'re weird in the best possible way', emoji: '🌀' },
-    { text: 'Because you never give up — on anything or anyone', emoji: '🦁' },
-    { text: 'Because you somehow make hard days easier', emoji: '☀️' },
-    { text: 'Because you exist — and that alone is a gift', emoji: '✨' },
+    { text: 'Because you make me feel understood without having to explain everything', emoji: '💛' },
+    { text: 'Because your laugh is literally the best sound', emoji: '😂' },
+    { text: 'Because you love with your whole heart, no half-measures', emoji: '❤️' },
+    { text: 'Because you\'re weird in the most perfect, irreplaceable way', emoji: '🌀' },
+    { text: 'Because you never give up — on anything or anyone, including me', emoji: '🦁' },
+    { text: 'Because you somehow make hard days easier just by existing', emoji: '☀️' },
+    { text: 'Because choosing you as my best friend is the easiest thing I\'ve ever done', emoji: '✨' },
   ],
 
 };
@@ -250,36 +250,31 @@ const SparkleEffect = {
 
 const Slides = {
   current: 1,
-  total: 0,        // ← determined at runtime from DOM, not hardcoded
+  total: 0,
   slides: [],
 
   init() {
     this.slides = Array.from(document.querySelectorAll('.slide'));
-    this.total = this.slides.length;                          // FIX: use real count
+    this.total = this.slides.length;
 
     document.getElementById('totalSlides').textContent = this.total;
 
-    // Build dynamic slide contents
     this.buildLoveGrid();
     this.buildPolaroids();
     this.buildTimeline();
     this.buildReasons();
     this.initGiftBox();
 
-    // Make sure NO slide has .active before we begin
     this.slides.forEach(s => s.classList.remove('active', 'exit-left', 'exit-right'));
 
-    // Land on slide 1
     this.current = 1;
     this.slides[0].classList.add('active');
     document.getElementById('currentSlide').textContent = 1;
     this.updateNavButtons();
 
-    // Nav buttons
     document.getElementById('prevBtn').addEventListener('click', () => this.prev());
     document.getElementById('nextBtn').addEventListener('click', () => this.next());
 
-    // Keyboard
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') this.next();
       if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   this.prev();
@@ -288,24 +283,17 @@ const Slides = {
     this.initSwipe();
   },
 
-  // FIX: completely rewritten goTo — clears all slides first,
-  // then applies the correct exit class to the old one and .active to the new one.
   goTo(n, direction = 'right') {
     if (n < 1 || n > this.total || n === this.current) return;
 
-    const prevIdx = this.current - 1;   // 0-based index of the slide leaving
-    const nextIdx = n - 1;              // 0-based index of the slide arriving
+    const prevIdx = this.current - 1;
+    const nextIdx = n - 1;
 
-    // Remove every state from every slide
     this.slides.forEach(s => s.classList.remove('active', 'exit-left', 'exit-right'));
 
-    // Outgoing slide gets exit animation
     this.slides[prevIdx].classList.add(direction === 'right' ? 'exit-left' : 'exit-right');
-
-    // Incoming slide becomes active
     this.slides[nextIdx].classList.add('active');
 
-    // Re-trigger stagger animations on cards inside the new slide
     this.slides[nextIdx]
       .querySelectorAll('.love-card, .memory-item, .reason-card')
       .forEach((el, j) => {
