@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120">
+  <!-- Body -->
+  <ellipse cx="50" cy="80" rx="38" ry="30" fill="#00B4CC"/>
+  <!-- Head -->
+  <circle cx="50" cy="45" r="38" fill="#00B4CC"/>
+  <!-- Face white area -->
+  <ellipse cx="50" cy="52" rx="28" ry="22" fill="white"/>
+  <!-- Eyes -->
+  <circle cx="38" cy="38" r="10" fill="white"/>
+  <circle cx="62" cy="38" r="10" fill="white"/>
+  <circle cx="40" cy="39" r="6" fill="#1a1a1a"/>
+  <circle cx="64" cy="39" r="6" fill="#1a1a1a"/>
+  <circle cx="42" cy="37" r="2" fill="white"/>
+  <circle cx="66" cy="37" r="2" fill="white"/>
+  <!-- Nose -->
+  <circle cx="50" cy="50" r="5" fill="#FF5252"/>
+  <!-- Whiskers -->
+  <line x1="20" y1="54" x2="42" y2="54" stroke="#666" stroke-width="1.5"/>
+  <line x1="20" y1="58" x2="42" y2="59" stroke="#666" stroke-width="1.5"/>
+  <line x1="58" y1="54" x2="80" y2="54" stroke="#666" stroke-width="1.5"/>
+  <line x1="58" y1="59" x2="80" y2="58" stroke="#666" stroke-width="1.5"/>
+  <!-- Mouth -->
+  <path d="M 38 62 Q 50 72 62 62" stroke="#666" stroke-width="2" fill="none"/>
+  <!-- Bell -->
+  <circle cx="50" cy="72" r="5" fill="#FFD700"/>
+  <!-- Collar -->
+  <rect x="18" y="67" width="64" height="8" rx="4" fill="#FF5252"/>
+  <!-- Pocket -->
+  <ellipse cx="50" cy="88" rx="18" ry="12" fill="white" opacity="0.5"/>
+  <!-- Feet -->
+  <ellipse cx="35" cy="108" rx="15" ry="8" fill="white"/>
+  <ellipse cx="65" cy="108" rx="15" ry="8" fill="white"/>
+</svg>
